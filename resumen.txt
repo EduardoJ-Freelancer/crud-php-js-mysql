@@ -15,6 +15,7 @@ Commits:
 
     resumen
     ajustes mobile
+    ajustes en README
     
 Códigos git usados:
     git clone
