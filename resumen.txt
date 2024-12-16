@@ -1,0 +1,38 @@
+Commits:
+  *main
+    clonar repo
+    instalacion de composer
+    carpetas base y template con bootstrap, jquery, sweetAlert en index
+    config y clase Database para conexión
+    clase Tasks y metodos Tasks::Class list, create, insert, search, delete, update, get_row
+    routes para consumo de Tasks
+    peticiones ajax en main.js
+    archivo css
+    db.sql
+
+  *feature/edit-task
+    feature/edit-task: edit.php y edit.js
+    
+Códigos git usados:
+    git clone
+    git add .
+    git commit -m 'msg'
+    git status
+    git branch -a
+    git branch feature/edit-task
+    git checkout feature/edit-task
+    git merge feature/edit-task
+    git push
+    git log
+
+Herramientas usadas:
+    PHP
+    Composer
+    jQuery, AJAX
+    Bootstrap, Iconos Bootstrap
+    SweetAlert
+    PHPMyAdmin
+    git, github
+    Visual Studio Code
+    Windows 10
+    XAMPP
