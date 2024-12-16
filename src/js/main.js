@@ -1,42 +1,121 @@
-$(document).ready(function(){
-	$("#table").load("includes/load.php");
-	$("#regForm").submit(function(e){
-		e.preventDefault();
+$(document).ready( function($) {
+
+    // Refresh load
+    $(document).on('click', '#btn-refresh', function(event) {
+        window.location.href = "index.php";
+    });
+
+    // Reset form & clean msg
+    $(document).on('click', '#btn-add-task', function(event) {
+        $("#saveModal .text-danger").text(''); 
+        $( '#form-task' ).trigger( 'reset' );
+    });
+
+    // Send form keypress enter
+    $(document).on('keypress', '#saveModal #form-task', function(event) {
+        if( event.keyCode === 13 ) {        
+            event.preventDefault();
+            $("#btn-save-task").trigger({ type: "click" });
+        }
+    });
+	
+    // List tasks
+    $("#table-body-tasks").load("routes/load.php");
+
+    // Create task
+    $(document).on('click', '#btn-save-task', function(event) {
+		event.preventDefault();
 		$.ajax({
 			type: "POST",
-			url:"includes/post.php",
-			data: $(this).serialize(),
+			url:"routes/post.php",
+			data: $('#form-task').serialize(),
 		})
-		.done(function(data){
-			$("#table").load("includes/load.php");
-			 $("#first").val('');
-			 $("#last").val('');
-			 $("#work").val('');
-			 $("#city").val('');
-			 $("#email").val('');
-			$("#msgReg").html("<p class='text-center alert alert-success'>"+data+"</p>");
-			$("#msgReg").slideDown(1400);
-			setTimeout(function(){
-			$("#msgReg").slideUp(900);
-			},900)
-		});
+		.done(function(response) {
+            if (response === 'success') {
+                $('#saveModal').modal('hide');
+                $( '#form-task' ).trigger( 'reset' );
+                $("[data-dismiss=modal]").trigger({ type: "click" });
+                Swal.fire({
+                    position: 'center',
+                    type: 'success',
+                    title: 'El registro se ha guardado satisfactoriamente',
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+                $("#table-body-tasks").load("routes/load.php"); 
+            } else {
+                $("#saveModal .text-danger").text(response); 
+            }
+		})
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+        });
 	});
-	// search bar
-	$("#q").keyup(function(){
+
+	// Search task
+	$("#keywords").keyup(function() {
 		$("#msg").hide();
-	let q = $("#q").val();
-	if(q !=''){
-		$("#table").html('');
-		$.ajax({
-			type:"POST",
-			url:"includes/search.php",
-			data:{q:q},
-			success:function(data){
-				$("#table").html(data);
-			}
-		});
-	} else	{
-		$("#table").load("includes/load.php");
-		}
+	    let keywords = $("#keywords").val();
+	    if( keywords !='' ) {
+            $("#table-body-tasks").html('');
+            $.ajax({
+                type:"POST",
+                url:"routes/search.php",
+                data:{ keywords:keywords },
+                success:function(response) {
+                    $("#table-body-tasks").html(response);
+                }
+            });
+        } else	{
+            $("#table-body-tasks").load("routes/load.php");
+        }
 	});
+
+    // Delete task
+    $(document).on('click', '.delete-task', function(event) {
+        event.preventDefault();
+        let id = $(this).attr('id');
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡No podrás revertir la operación!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Sí, Elimínalo!'
+        }).then((result) => {
+            if (result.value) {
+                var dataString = {};
+                dataString['id'] = id;
+                $.ajax({
+                    url : 'routes/delete.php',
+                    type: 'POST',
+                    data : dataString,
+                })
+                .done(function( response ) {
+                    console.log("success");
+                    console.log(response);
+                    // csrf['csrf'] = response.hash;                
+                    Swal.fire({
+                        position: 'center',
+                        type: 'success',
+                        title: 'El registro ha sido eliminado',
+                        showConfirmButton: false,
+                        timer: 2000,
+                    });
+                    $("#table-body-tasks").load("routes/load.php"); 
+                })
+                .fail(function() {
+                    console.log("error");
+                })
+                .always(function() {
+                    console.log("complete");
+                });
+            }
+        });
+    });
+
 });	
