@@ -1,0 +1,16 @@
+{
+    "name": "freelancer/crud",
+    "description": "Crear, listar, actualizar y eliminar registros usando PHP, Javascript y MySQL.",
+    "autoload": {
+        "psr-4": {
+            "Freelancer\\Crud\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Eduardo JR",
+            "email": "eduardojr.web@gmail.com"
+        }
+    ],
+    "require": {}
+}
