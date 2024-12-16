@@ -12,6 +12,8 @@ Commits:
 
   *feature/edit-task
     feature/edit-task: edit.php y edit.js
+
+    resumen
     
 Códigos git usados:
     git clone
