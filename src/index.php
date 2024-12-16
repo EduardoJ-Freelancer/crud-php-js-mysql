@@ -5,7 +5,7 @@
     <!-- Page content-->
     <div class="container-fluid main" id="app">
         <h2 class="font-weight-bold mt-5 text-center col-12">
-            SCRUD(Search, Create, Update, Read, Delete)
+            CRUD(Create, Update, Read, Delete)
         </h2> 
         <div class="row mb-4 pb-2 mx-1 border-bottom">            
             <p class="p-0 col-2 col-lg-1">
@@ -64,17 +64,16 @@
                             
             <div class="card-header py-3">                
                 <div class="row controls">        
-                    <div class="col-4 col-lg-1 limit">       
+                    <div class="col-4 col-lg-1 limit d-none d-lg-block">       
                         <select class="form-select" aria-label="Tasks" id="limit-task" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-title="Selecciona cantidad de registros a mostrar">            
                             <option value="20">20</option>            
                             <option value="50">50</option>            
                             <option value="100">100</option>          
                         </select>       
                     </div>
-                    <div class="col-8 col-lg-2 offset-lg-3">
-                        
+                    <div class="col-8 col-lg-2 offset-lg-3">                        
                     </div>    
-                    <div class="col-2 col-lg-1 offset-lg-2 buttons">              
+                    <div class="col-2 col-lg-1 offset-lg-2 buttons  d-none d-lg-block">              
                         <button type="button" class="btn btn-primary btn-md btn-refresh" id="btn-refresh" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-title="Refrescar">        
                             <i class="bi bi-arrow-clockwise"></i>       
                         </button>        
@@ -115,7 +114,7 @@
                     
             <div class="card-footer">           
                 <div class="row">
-                    <div class="col description-pagination">
+                    <div class="col description-pagination d-none d-lg-block">
                         <p id="total-actions">
                             Mostrando <b>0</b> a <b>20</b> de un total de <b>100</b> registros
                         </p>

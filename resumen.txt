@@ -14,6 +14,7 @@ Commits:
     feature/edit-task: edit.php y edit.js
 
     resumen
+    ajustes mobile
     
 Códigos git usados:
     git clone
